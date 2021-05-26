@@ -7,6 +7,10 @@ class Purchase {
         return Order.create(body);
     }
 
+    async searchAllOrders() {
+        return Order.findAll();
+    }
+
 }
 
 let orderController = new Purchase();
