@@ -23,6 +23,13 @@ class Person {
 
         return User.destroy({where: {id: id}});
     }
+
+    async nameUser(email){
+        return User.findOne({
+            where: {email}
+        })
+    }
+
 }
 
 let userController = new Person();

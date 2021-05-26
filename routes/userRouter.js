@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const authenticate = require('../middleware/authenticate');
 
 const userController = require('../controllers/userController');
 
 // GET user by Id
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
         res.json(await userController.searchUserById(id));
@@ -28,7 +29,7 @@ router.post('/', async (req, res) => {
 });
 
 // DELETE user by Id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
         res.json(await userController.deleteUser(id));
