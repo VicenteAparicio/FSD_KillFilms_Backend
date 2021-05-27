@@ -4,7 +4,6 @@ const { Order } = require('../models');
 class Purchase {
 
     async newOrder(body) {
-        console.log('Entamos en el newOrder');
         return Order.create(body);
     }
 
@@ -12,9 +11,9 @@ class Purchase {
         return Order.findAll();
     }
 
-    async searchOrdersByCity(city){
-        return Order;
-    }
+    // async searchOrdersByCity(city){
+    //     return Order;
+    // }
 
     async modifyOrder(body, orderId){
         return Order.update(
@@ -26,6 +25,14 @@ class Purchase {
                { id: orderId }
         })
     }
+
+    async deleteOrder(id){
+        return Order.destroy ({where:{id}})
+    }
+
+
+
+
 }
 
 let orderController = new Purchase();

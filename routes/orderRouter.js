@@ -1,6 +1,7 @@
 const router = require('express').Router();
-
+const userController = require('../controllers/userController');
 const orderController = require('../controllers/orderController');
+const authenticate = require('../middleware/authenticate');
 
 // GET all orders
 router.get('/', async (req, res) => {
@@ -28,12 +29,10 @@ router.get('/bycity/:city', async (req, res) => {
 // POST new order with body
 router.post('/neworder', async (req, res) => {
     try {
-        console.log('Entamos en el newOrder TRY');
         const body = req.body;
         res.json(await orderController.newOrder(body));
 
     }catch (err) {
-        console.log('Entamos en el newOrder CATCH');
         return res.status(500).json({
             message: err.message
         });
@@ -46,7 +45,7 @@ router.put('/modify/:id', async (req,res)=> {
     try {
         const orderId = req.params.id;
         const body = req.body;
-        res.json(await orderController.newOrder(body, orderId));
+        res.json(await orderController.modifyOrder(body, orderId));
 
     }catch (err) {
         return res.status(500).json({
@@ -54,4 +53,25 @@ router.put('/modify/:id', async (req,res)=> {
         });
     }
 })
+
+
+// DELETE order by ID
+router.delete('/delete/:id', authenticate, async (req,res)=> {
+    try {
+        const id = req.params.id;
+        res.json(await orderController.deleteOrder(id));
+
+    }catch (err) {
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+})
+
+
+
+
+
+
+
 module.exports = router;

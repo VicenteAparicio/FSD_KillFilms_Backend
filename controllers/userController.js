@@ -29,7 +29,6 @@ class Person {
     }
 
     async deleteUser(id){
-
         return User.destroy({where: {id: id}})
     }
 
