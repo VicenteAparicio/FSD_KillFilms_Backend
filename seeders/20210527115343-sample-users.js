@@ -11,43 +11,57 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     await queryInterface.bulkInsert('Movies', [
+     await queryInterface.bulkInsert('Users', [
       {
-        "title" : "The African Queen",
-        "releasedate" : 1951,
-        "productor": "Sam Spiegel",
-        "director" : "John Huston",
-        "actors" : "Humphrey Bogart"
+        "name" : "Vicente",
+        "lastname" : "Api",
+        "email": "vicente@gmail.com",
+        "country" : "Spain",
+        "city" : "Valencia",
+        "cp" : "46013",
+        "password" : "bootcamp",
+        "isAdmin" : 1
       },
       {
-        "title" : "Casablanca",
-        "releasedate" : 1942,
-        "productor": "Hall Wallis",
-        "director" : "Michael Curtiz",
-        "actors" : "Humphrey Bogart"
+        "name" : "Guillermo",
+        "lastname" : "Herráez",
+        "email": "guillermo@gmail.com",
+        "country" : "Luxemburgo",
+        "city" : "Luxemburgo",
+        "cp" : "46008",
+        "password" : "bootcamp2",
+        "isAdmin" : 0
       },
       {
-        "title" : "The Philadelphia Story",
-        "releasedate" : 1949,
-        "productor": "Joseph L. Mankiewicz",
-        "director" : "George Cukor",
-        "actors" : "Gary Grant"
+        "name" : "Adriana",
+        "lastname" : "Fayos",
+        "email": "adriana@gmail.com",
+        "country" : "France",
+        "city" : "Paris",
+        "cp" : "15032",
+        "password" : "bootcamp3",
+        "isAdmin" : 0
       },
       {
-        "title" : "The Great Dictator",
-        "releasedate" : 1940,
-        "productor": "Charles Chaplin",
-        "director" : "Charles Chaplin",
-        "actors" : "Charles Chaplin"
+        "name" : "Juanfe",
+        "lastname" : "Ferrán",
+        "email": "juanfe@gmail.com",
+        "country" : "Venezuela",
+        "city" : "Caracas",
+        "cp" : "6003",
+        "password" : "bootcamp4",
+        "isAdmin" : 0
       },
       {
-        "title" : "Bend of the River",
-        "releasedate" : 1952,
-        "productor": "Universal Pictures",
-        "director" : "Anthony Mann",
-        "actors" : "James Stewart"
+        "name" : "Adrián",
+        "lastname" : "Furlan",
+        "email": "adrianfur@gmail.com",
+        "country" : "Italia",
+        "city" : "Venezia",
+        "cp" : "27015",
+        "password" : "bootcamp5",
+        "isAdmin" : 1
       }
-
     ])
   },
 
