@@ -3,6 +3,9 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
 class Person {
+    async allUsers(){
+        return User.findAll();
+    }
 
     async searchUserById(id) {
         return User.findByPk(id);
@@ -16,20 +19,18 @@ class Person {
         body.password = passwordHashed;
 
         return User.create(body);
-
     }
 
     async deleteUser(id){
 
-        return User.destroy({where: {id: id}});
+        return User.destroy({where: {id: id}})
     }
 
-    async nameUser(email){
+    async emailUser(email){
         return User.findOne({
             where: {email}
         })
     }
-
 }
 
 let userController = new Person();

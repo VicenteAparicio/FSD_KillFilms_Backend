@@ -1,7 +1,20 @@
 const router = require('express').Router();
 const authenticate = require('../middleware/authenticate');
-
+const admin = require("../middleware/adminUser");
 const userController = require('../controllers/userController');
+
+
+// GET all users
+router.get('/allUsers', admin, async (req, res) => {
+    try {
+        const id = req.params.id;
+        res.json(await userController.allUsers());
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
 // GET user by Id
 router.get('/:id', authenticate, async (req, res) => {
@@ -32,7 +45,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
-        res.json(await userController.deleteUser(id));
+        res.json(await userController.deleteUser(id))
 
     }catch (err) {
         return res.status(500).json({

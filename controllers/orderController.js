@@ -11,6 +11,9 @@ class Purchase {
         return Order.findAll();
     }
 
+    async searchOrdersByCity(city){
+        return Order;
+    }
 }
 
 let orderController = new Purchase();

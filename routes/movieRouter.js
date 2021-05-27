@@ -21,8 +21,6 @@ router.get('/bytitle/:movie', async (req, res) => {
     }
 });
 
-
-
 router.get('/toprated', async (req, res) => {
     try {
         res.json(await movieController.findTopRated());

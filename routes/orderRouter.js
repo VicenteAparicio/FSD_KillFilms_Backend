@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET orders by city
+router.get('/bycity/:city', async (req, res) => {
+    try {
+        const city = req.params.city
+        res.json(await orderController.searchOrdersByCity(city));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
 // POST new order with body
 router.post('/', async (req, res) => {
     try {
