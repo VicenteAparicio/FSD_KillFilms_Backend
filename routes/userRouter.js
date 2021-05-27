@@ -7,7 +7,6 @@ const userController = require('../controllers/userController');
 // GET all users
 router.get('/allUsers', admin, async (req, res) => {
     try {
-        const id = req.params.id;
         res.json(await userController.allUsers());
     } catch (err) {
         return res.status(500).json({
@@ -17,10 +16,22 @@ router.get('/allUsers', admin, async (req, res) => {
 });
 
 // GET user by Id
-router.get('/:id', authenticate, async (req, res) => {
+router.get('/byid/:id', async (req, res) => {
     try {
         const id = req.params.id;
         res.json(await userController.searchUserById(id));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+//GET user by Name
+router.get('/byname/:name', async (req, res) => {
+    try {
+        const name = req.params.name1;
+        res.json(await userController.searchUserByName(name));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message

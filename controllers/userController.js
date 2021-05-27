@@ -11,6 +11,13 @@ class Person {
         return User.findByPk(id);
     }
 
+    async searchUserByName(name){
+        return User.findOne({
+            where: {name}
+        });
+
+    }
+
     async newUser(body){
 
         let password = body.password;

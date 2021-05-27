@@ -38,6 +38,9 @@ To search toprated
 To search by title id
 - movies/searchid/:theid
 <br>
+To find all genre ids
+- movies/findallgenreid
+<br>
 To search by genre name
 - movies/searchgenre/thegenrename
 <br>
