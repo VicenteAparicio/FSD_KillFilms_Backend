@@ -26,16 +26,32 @@ router.get('/bycity/:city', async (req, res) => {
 });
 
 // POST new order with body
-router.post('/', async (req, res) => {
+router.post('/neworder', async (req, res) => {
     try {
+        console.log('Entamos en el newOrder TRY');
         const body = req.body;
         res.json(await orderController.newOrder(body));
 
     }catch (err) {
+        console.log('Entamos en el newOrder CATCH');
         return res.status(500).json({
             message: err.message
         });
     }
 });
 
+
+// PUT modify order
+router.put('/modify/:id', async (req,res)=> {
+    try {
+        const orderId = req.params.id;
+        const body = req.body;
+        res.json(await orderController.newOrder(body, orderId));
+
+    }catch (err) {
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+})
 module.exports = router;

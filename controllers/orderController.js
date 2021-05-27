@@ -4,6 +4,7 @@ const { Order } = require('../models');
 class Purchase {
 
     async newOrder(body) {
+        console.log('Entamos en el newOrder');
         return Order.create(body);
     }
 
@@ -13,6 +14,17 @@ class Purchase {
 
     async searchOrdersByCity(city){
         return Order;
+    }
+
+    async modifyOrder(body, orderId){
+        return Order.update(
+            {
+                rentaldate: body.rentaldate,
+                returndate: body.returndate
+            },
+            { where: 
+               { id: orderId }
+        })
     }
 }
 

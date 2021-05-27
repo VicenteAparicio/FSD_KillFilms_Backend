@@ -7,11 +7,12 @@ class Film {
     async allMovies(){
         return Movie.findAll();
     }
-    async moviesByTitle(title2){
-        console.log(title2);
+
+    async moviesByTitle(title){
+        console.log(title);
         return Movie.findOne({
             where: {
-                title: title2
+                title
             }
         })
     }

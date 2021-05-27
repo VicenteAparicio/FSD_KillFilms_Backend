@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.User, {foreignKey:'userId'})
-      this.hasMany(models.Movie, {foreignKey: 'movieId'})
+      this.belongsTo(models.Movie, {foreignKey: 'movieId'})
     }
   };
   Order.init({

@@ -9,7 +9,7 @@ const movieController = require('../controllers/movieController');
 //GET
 //http://localhost:3000/movies
 
-router.get('/allmovies', async (req, res) => { //NOT WORKING
+router.get('/allmovies', authenticate, async (req, res) => { //NOT WORKING
     try {
         res.json(await movieController.allMovies());
     } catch (err) {
