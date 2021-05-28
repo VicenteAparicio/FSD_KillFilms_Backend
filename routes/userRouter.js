@@ -30,7 +30,7 @@ router.get('/byid/:id', async (req, res) => {
 //GET user by Name
 router.get('/byname/:name', async (req, res) => {
     try {
-        const name = req.params.name1;
+        const name = req.params.name;
         res.json(await userController.searchUserByName(name));
     } catch (err) {
         return res.status(500).json({

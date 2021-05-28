@@ -14,7 +14,6 @@ class LoginController {
 
         if(!verificar){
             return new Error("El password y el email no coinciden");
-
         }
 
         let payload = {

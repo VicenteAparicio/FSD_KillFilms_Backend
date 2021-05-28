@@ -12,10 +12,7 @@ class Person {
     }
 
     async searchUserByName(name){
-        return User.findOne({
-            where: {name}
-        });
-
+        return User.findOne({where: {name}});
     }
 
     async newUser(body){
@@ -29,13 +26,11 @@ class Person {
     }
 
     async deleteUser(id){
-        return User.destroy({where: {id: id}})
+        return User.destroy({where: {id}})
     }
 
     async emailUser(email){
-        return User.findOne({
-            where: {email}
-        })
+        return User.findOne({where: {email}})
     }
 }
 

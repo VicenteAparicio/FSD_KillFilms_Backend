@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const userController = require('../controllers/userController');
 const orderController = require('../controllers/orderController');
+const userController = require('../controllers/userController');
 const authenticate = require('../middleware/authenticate');
 
 // GET all orders
