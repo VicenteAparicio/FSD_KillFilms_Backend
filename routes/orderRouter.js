@@ -69,10 +69,10 @@ router.put('/modify/:id', authenticate,async (req,res)=> {
 
 
 // DELETE order by ID
-router.delete('/delete/:id', authenticate, async (req,res)=> {
+router.delete('/delete', authenticate, async (req,res)=> {
     try {
-        const id = req.params.id;
-        res.json(await orderController.deleteOrder(id));
+        const body = req.body;
+        res.json(await orderController.deleteOrder(body));
 
     }catch (err) {
         return res.status(500).json({

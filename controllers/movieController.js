@@ -9,12 +9,19 @@ class Film {
     }
 
     async moviesByTitle(title){
-        console.log(title);
-        return Movie.findOne({
-            where: {
-                title
-            }
-        })
+        return Movie.findOne({where: {title}})
+    }
+
+    async moviesByGenre(genre){
+        return Movie.findAll({where: {genre}})
+    }
+
+    async moviesByActor(actors){
+        return Movie.findAll({where: {actors}})
+    }
+
+    async moviesById(id){
+        return Movie.findByPk(id)
     }
 
     // async searchMovieByTitle(movie) {

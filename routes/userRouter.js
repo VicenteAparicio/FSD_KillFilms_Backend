@@ -39,6 +39,18 @@ router.post('/byname', admin, async (req, res) => {
     }
 });
 
+//GET user by email
+router.post('/byemail', admin, async (req, res) => {
+    try {
+        const body = req.body;
+        res.json(await userController.searchUserByEmail(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
 // POST new user with body
 router.post('/', async (req, res) => {
     try {
@@ -53,10 +65,10 @@ router.post('/', async (req, res) => {
 });
 
 // DELETE user by Id
-router.delete('/:id', authenticate, async (req, res) => {
+router.delete('/delete', authenticate, async (req, res) => {
     try {
-        const id = req.params.id;
-        res.json(await userController.deleteUser(id))
+        const body = req.body;
+        res.json(await userController.deleteUser(body))
 
     }catch (err) {
         return res.status(500).json({

@@ -60,7 +60,8 @@ class Purchase {
         })
     }
     // DELETE ORDER
-    async deleteOrder(id){
+    async deleteOrder(body){
+        let id = body.orderId;
         return Order.destroy ({where:{id}})
     }
 

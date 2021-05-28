@@ -12,10 +12,6 @@ const authenticate = (req, res, next) => {
         let token = req.headers.authorization.split(' ')[1];
         let auth = jwt.verify(token,secret);
 
-        console.log("Este es el req.params.id: "+req.params.id);
-        console.log("Este es el auth.userId: "+auth.userId);
-        
-
         if (auth.isAdmin == true){
             return next();
         } else {

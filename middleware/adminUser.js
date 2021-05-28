@@ -13,19 +13,11 @@ const admin = (req, res, next) => {
             return "no tenías token ";
         }
     
-        let token = req.headers.authorization.split(' ')[1];
-    
+        let token = req.headers.authorization.split(' ')[1];    
         let auth = jwt.verify(token,secret);
-
-        console.log('AUTH USERID ' + auth.userId)
-        console.log('REQ PARAMS ID ' + req.params.id)
-        console.log('AUTH IS ADMIN ' + auth.isAdmin)
-        console.log('REQ BODY ADMIN ' + req.body.isAdmin)
     
         if(auth.isAdmin == false){
-            
             throw new Error("No tienes permiso para realizar esta acción");
-            
         }
         return next();
     } catch(error) {
