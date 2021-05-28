@@ -33,6 +33,14 @@ class Person {
         return User.destroy({where: {id}})
     }
 
+    async emailUser(email){
+        return User.findOne({where: {email}})
+    }
+
+
+
+
+
 
 }
 

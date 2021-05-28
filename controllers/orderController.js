@@ -49,7 +49,8 @@ class Purchase {
         return arrayOrders;
     }
     // MODIFY ORDER
-    async modifyOrder(body, orderId){
+    async modifyOrder(body){
+        let orderId = body.orderId;
         return Order.update(
             {
                 rentaldate: body.rentaldate,

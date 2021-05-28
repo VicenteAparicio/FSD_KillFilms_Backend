@@ -54,11 +54,10 @@ router.post('/neworder', authenticate,async (req, res) => {
 
 
 // PUT modify order
-router.put('/modify/:id', authenticate,async (req,res)=> {
+router.put('/modify', authenticate,async (req,res)=> {
     try {
-        const orderId = req.params.id;
         const body = req.body;
-        res.json(await orderController.modifyOrder(body, orderId));
+        res.json(await orderController.modifyOrder(body));
 
     }catch (err) {
         return res.status(500).json({
