@@ -11,7 +11,8 @@ class Person {
         return User.findByPk(id);
     }
 
-    async searchUserByName(name){
+    async searchUserByName(body){
+        let name = body.name;
         return User.findOne({where: {name}});
     }
 

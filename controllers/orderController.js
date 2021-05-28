@@ -12,49 +12,43 @@ class Purchase {
         return Order.findAll();
     }
 
+    async searchOrderByUserId(body) {
+        console.log("llegamos al controller");
+        let id = body.id;
+        return Order.findAll({where: {userid: id}});
+    }
+
     // async searchOrdersByCity(city){
     //     let arrayOrders =[];
-    //     let data = await User.findOne({where: {city}});
-    //     console.log("Este es el data " + data.city);
-    //     console.log("Este es el data " + data.name);
-    //     console.log("Este es el data " + data.lastname);
-    //     console.log("Este es el data " + data.id);
     //     let allOrders = await Order.findAll();
-    //     console.log(allOrders);
-    //     for (let i in allOrders) {
-    //         console.log(allOrders[i].id)
-    //         if (data.id == allOrders[i].userId){
-    //             arrayOrders.push(allOrders[i]);
-    //             console.log("Este es el allOrders: "+allOrders[i].userId)
-    //             console.log("Este es el array: "+arrayOrders[i])
+    //     let allUsers = await User.findAll();
+    //     for (let j in allUsers){
+    //         if(allUsers[j].city==city){
+    //             for (let i in allOrders) {
+    //                 if (allUsers[j].id == allOrders[i].userId){
+    //                     arrayOrders.push(allOrders[i]);
+    //                 }
+    //             }
     //         }
     //     }
     //     return arrayOrders;
-    //         //  if (genreName == arrayOrders[i].id)
     // }
 
-    async searchOrdersByCity(city){
+
+    // SEARCH ORDERS BY CITY 
+    async searchOrdersByCity(body){
         let arrayOrders =[];
-        let allOrders = await Order.findAll();
-        let allUsers = await User.findAll();
+        let city = body.city;
+        let allUsers = await User.findAll({where: {city}});
         for (let j in allUsers){
-            console.log('Este es cada user: '+allUsers[j].city)
-            if(allUsers[j].city==city){
-                for (let i in allOrders) {
-                    console.log(allOrders[i].id)
-                    if (allUsers[j].id == allOrders[i].userId){
-                        arrayOrders.push(allOrders[i]);
-                        console.log("Este es el allOrders: "+allOrders[i].userId)
-                        console.log("Este es el array: "+arrayOrders[i])
-                    }
-                }
+            let allOrders = await Order.findAll({where: {userId: allUsers[j].id}});
+            for (let i in allOrders) {
+                arrayOrders.push(allOrders[i]);
             }
         }
-        
         return arrayOrders;
-            //  if (genreName == arrayOrders[i].id)
     }
-
+    // MODIFY ORDER
     async modifyOrder(body, orderId){
         return Order.update(
             {
@@ -65,7 +59,7 @@ class Purchase {
                { id: orderId }
         })
     }
-
+    // DELETE ORDER
     async deleteOrder(id){
         return Order.destroy ({where:{id}})
     }

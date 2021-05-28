@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const orderController = require('../controllers/orderController');
-const userController = require('../controllers/userController');
 const authenticate = require('../middleware/authenticate');
+const admin = require("../middleware/adminUser");
 
 // GET all orders
-router.get('/', async (req, res) => {
+router.get('/', admin, async (req, res) => {
     try {
         res.json(await orderController.searchAllOrders());
     } catch (err) {
@@ -14,11 +14,24 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET orders by city
-router.get('/bycity/:city', async (req, res) => {
+// GET all orders by Id
+router.post('/orderuserid', async (req, res) => {
     try {
-        const city = req.params.city
-        res.json(await orderController.searchOrdersByCity(city));
+        const body = req.body;
+        console.log("llegamos al controller");
+        res.json(await orderController.searchOrderByUserId(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+// GET orders by city
+router.post('/bycity', admin, async (req, res) => {
+    try {
+        const body = req.body;
+        res.json(await orderController.searchOrdersByCity(body));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message
@@ -27,7 +40,7 @@ router.get('/bycity/:city', async (req, res) => {
 });
 
 // POST new order with body
-router.post('/neworder', async (req, res) => {
+router.post('/neworder', authenticate,async (req, res) => {
     try {
         const body = req.body;
         res.json(await orderController.newOrder(body));
@@ -41,7 +54,7 @@ router.post('/neworder', async (req, res) => {
 
 
 // PUT modify order
-router.put('/modify/:id', async (req,res)=> {
+router.put('/modify/:id', authenticate,async (req,res)=> {
     try {
         const orderId = req.params.id;
         const body = req.body;
@@ -67,11 +80,5 @@ router.delete('/delete/:id', authenticate, async (req,res)=> {
         });
     }
 })
-
-
-
-
-
-
 
 module.exports = router;

@@ -16,7 +16,7 @@ router.get('/allUsers', admin, async (req, res) => {
 });
 
 // GET user by Id
-router.get('/byid/:id', async (req, res) => {
+router.get('/byid/:id', admin, async (req, res) => {
     try {
         const id = req.params.id;
         res.json(await userController.searchUserById(id));
@@ -28,10 +28,10 @@ router.get('/byid/:id', async (req, res) => {
 });
 
 //GET user by Name
-router.get('/byname/:name', async (req, res) => {
+router.post('/byname', admin, async (req, res) => {
     try {
-        const name = req.params.name;
-        res.json(await userController.searchUserByName(name));
+        const body = req.body;
+        res.json(await userController.searchUserByName(body));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message

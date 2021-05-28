@@ -15,12 +15,16 @@ const authenticate = (req, res, next) => {
         console.log("Este es el req.params.id: "+req.params.id);
         console.log("Este es el auth.userId: "+auth.userId);
         
-        if(auth.userId != req.body.id && auth.userId != req.body.userId){
-            throw new Error("No tienes permiso para realizar esta acción");
+
+        if (auth.isAdmin == true){
+            return next();
+        } else {
+            if(auth.userId != req.body.id && auth.userId != req.body.userId){
+                throw new Error("No tienes permiso para realizar esta acción");
+            } else  {
+                return next();
+            }
         }
-
-        return next();
-
     } catch(error) {
         res.status(500).json({
             message: error.message
