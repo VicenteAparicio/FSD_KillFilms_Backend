@@ -16,7 +16,7 @@ router.get('/allUsers', admin, async (req, res) => {
 });
 
 // GET user by Id
-router.get('/byid/:id', admin, async (req, res) => {
+router.get('/byid/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
         res.json(await userController.searchUserById(id));
@@ -56,6 +56,19 @@ router.post('/', async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.newUser(body));
+
+    }catch (err) {
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+});
+
+// POST modify user with body
+router.put('/modify', async (req, res) => {
+    try {
+        const body = req.body;
+        res.json(await userController.modifyUser(body));
 
     }catch (err) {
         return res.status(500).json({

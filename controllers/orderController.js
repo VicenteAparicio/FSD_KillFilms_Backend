@@ -37,7 +37,7 @@ class Purchase {
 
     // SEARCH ORDERS BY CITY 
     async searchOrdersByCity(body){
-        let arrayOrders =[];
+        let arrayOrders = [];
         let city = body.city;
         let allUsers = await User.findAll({where: {city}});
         for (let j in allUsers){

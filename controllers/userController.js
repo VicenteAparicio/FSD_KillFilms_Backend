@@ -1,4 +1,3 @@
-
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
@@ -21,11 +20,42 @@ class Person {
         return User.findOne({where: {email}})
     }
 
+    // async newUser(body){
+    //     let password = body.password;
+    //     let passwordHashed = bcrypt.hashSync(password, 10);
+    //     body.password = passwordHashed;
+    //     return User.create(body);
+    // }
+
     async newUser(body){
+        let userExist = await userController.searchUserByEmail(body);
+        if (userExist){
+            throw new Error("Este email ya está siendo utilizado");
+        }
         let password = body.password;
         let passwordHashed = bcrypt.hashSync(password, 10);
         body.password = passwordHashed;
         return User.create(body);
+    }
+
+    async modifyUser(body){
+        let id = body.id;
+        let password = body.password;
+        let passwordHashed = bcrypt.hashSync(password, 10);
+        return User.update(
+            {
+                name: body.name,
+                lastname: body.lastname,
+                email: body.email,
+                country: body.country,
+                city: body.city,
+                cp: body.cp,
+                password: passwordHashed
+            },
+            {
+                where: {id}
+            }
+        )
     }
 
     async deleteUser(body){
