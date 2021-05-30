@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { Movie } = require('../models');
+const toolsController = require('../tools/toolsController')
 
 class Film {
 
@@ -45,25 +46,28 @@ class Film {
 
     async createMovieByTitle(body) {
         let movie = body.title;
-        console.log(movie)
-        let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
-        let movieData = res.data.results[0];
-        let movieId = movieData.id;
-        let movieGenreId = movieData.genre_ids[0];
-        let genreMovie = "";
+        let existMovie = await Movie.findOne({where: {title: movie}})
+
+        if (existMovie){
+            throw new Error("Esta película ya está en la biblioteca");
+        }
+
+        let res = await toolsController.searchMovieByTitle(movie);
+        console.log(res)
+        let movieId = res.id;
+        let movieGenreId = res.genre_ids[0];
         let actorsMovie = [];
         let directorMovie = "";
         let count = 0;
         let j = 0;
 
         // Production info
-        let res3 = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-        let production = res3.data.production_companies[0].name;
-        console.log(production)
+        let res3 = await toolsController.searchById(movieId);
+        let production = res3.production_companies[0].name;
 
 
         // Cast and Crew info
-        let charactersjson = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
+        let charactersjson = await toolsController.getCreditsMovie(movieId);
         let cast = charactersjson.data['cast'];
         let crew = charactersjson.data['crew'];
 
@@ -85,84 +89,23 @@ class Film {
         }
 
         // Genre info
-        let res2 = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-        let arrayGenre = res2.data.genres;
-        
-        for (let i in arrayGenre) {
-            if (movieGenreId == arrayGenre[i].id){
-                genreMovie = arrayGenre[i].name;
-            }
-        }
+        let genreMovie = await toolsController.getGenreName(movieGenreId);
 
 
-        console.log("llegamos a crear?")
         return Movie.create(
             {
-                title: movieData.original_title,
-                releasedate: movieData.release_date,
+                title: res.original_title,
+                releasedate: res.release_date,
                 productor: production,
                 director: directorMovie,
                 actors: stringActorsMovie,
-                rating: movieData.vote_average,
+                rating: res.vote_average,
                 genre: genreMovie
             }
         )
     }
 
-    // async searchMovieByTitle(movie) {
-    //     let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
 
-    //     return res.data.results[0];
-    // }
-
-    // async searchMovieByTitle(movie) {
-    //     let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
-    //     return res.data.results[0];
-    // }
-
-    // async findTopRated() {
-    //     let res = await axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-    //     return res.data;
-    // }
-
-    // async searchById(id) {
-    //     let res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-    //     return res.data;
-    // }
-
-    // async findAllGenreId(){
-    //     let res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-    //     return res.data;
-    // }
-
-    // async searchByGenreName(genreName) {
-    //     let res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-    //     let arrayGenre = res.data.genres;
-
-    //     for (let i in arrayGenre) {
-    //         if (genreName == arrayGenre[i].name) {
-    //             let code1 = arrayGenre[i].id;
-    //             let res2 = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&with_genres=${code1}`);
-    //             return res2.data;
-    //         }
-    //     }
-    // }
-
-    // async searchByCode(code) {
-    //     let res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&with_genres=${code}`);
-    //     return res.data;
-    // }
-
-
-    // async findNowPlaying() {
-    //     let res = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-    //     return res.data;
-    // }
-
-    // async findPopular() {
-    //     let res = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-    //     return res.data;
-    // }
 
 }
 

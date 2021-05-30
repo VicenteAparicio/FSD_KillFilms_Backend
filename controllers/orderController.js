@@ -1,5 +1,4 @@
 const { User } = require('../models');
-
 const { Order } = require('../models');
 
 class Purchase {

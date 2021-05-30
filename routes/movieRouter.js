@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authenticate = require('../middleware/authenticate');
 const admin = require("../middleware/adminUser");
 const movieController = require('../controllers/movieController');
+const toolsController = require('../tools/toolsController');
 
 
 
@@ -97,90 +98,100 @@ router.delete('/deletemovie', admin, async (req, res) => {
 
 // AXIOS THE MOVIE DATA BASE TIMDB
 
-// router.get('/axiosbytitle/:movie', async (req, res) => {
-//     try {
-//         let movie = req.params.movie;
-//         res.json(await movieController.searchMovieByTitle(movie));
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/axiosbytitle/:movie', async (req, res) => {
+    try {
+        let movie = req.params.movie;
+        res.json(await toolsController.searchMovieByTitle(movie));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
 
+router.get('/toprated', async (req, res) => {
+    try {
+        res.json(await toolsController.findTopRated());
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/toprated', async (req, res) => {
-//     try {
-//         res.json(await movieController.findTopRated());
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/searchid/:id', async (req, res) => {
+    try {
+        let id = req.params.id;
+        res.json(await toolsController.searchById(id));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/searchid/:id', async (req, res) => {
-//     try {
-//         let id = req.params.id;
-//         res.json(await movieController.searchById(id));
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/creditsmovie/:id', async (req, res) => {
+    try {
+        let id = req.params.id;
+        res.json(await toolsController.getCreditsMovie(id));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/findallgenreid', async (req, res) => {
-//     try {
-//         res.json(await movieController.findAllGenreId());
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/findallgenreid', async (req, res) => {
+    try {
+        res.json(await movieController.findAllGenreId());
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/searchgenre/:genreLog', async (req, res) => {
-//     try {
-//         let genreLog = req.params.genreLog;
-//         res.json(await movieController.searchByGenreName(genreLog));
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/searchgenre/:genreLog', async (req, res) => {
+    try {
+        let genreLog = req.params.genreLog;
+        res.json(await toolsController.searchByGenreName(genreLog));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/scode/:code', async (req, res) => {
-//     try {
-//         let codeG = req.params.code;
-//         res.json(await movieController.searchByCode(codeG));
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/searchbygenreid/:genreid', async (req, res) => {
+    try {
+        let genreId = req.params.genreid;
+        res.json(await toolsController.searchByCode(genreId));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/nowplaying', async (req, res) => {
-//     try {
-//         res.json(await movieController.findNowPlaying());
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/nowplaying', async (req, res) => {
+    try {
+        res.json(await toolsController.findNowPlaying());
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
-// router.get('/popular', async (req, res) => {
-//     try {
-//         res.json(await movieController.findPopular());
-//     } catch (err) {
-//         return res.status(500).json({
-//             mesaje: err.message
-//         });
-//     }
-// });
+router.get('/popular', async (req, res) => {
+    try {
+        res.json(await toolsController.findPopular());
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
 module.exports = router;

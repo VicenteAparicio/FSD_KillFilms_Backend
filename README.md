@@ -24,58 +24,75 @@ This is a team project. We have two objectives: learn how to do teamwork and sta
 <br>
 
 <img src="./readmeIMG/img03.png" style="width: 100%">
-
+<br>
 ## Commands to search
-
-### MOVIES
 <br>
-To search by title
-- movies/bytitle/:thetitle
+### ANYBODY
 <br>
-To search toprated
-- movies/toprated
+GET Allmovies
+- movies/allmovies
 <br>
-To search by title id
-- movies/searchid/:theid
+GET To search by title
+- movies/bytitle/:title
 <br>
-To find all genre ids
-- movies/findallgenreid
+GET To search by id
+- movies/byid/:id
 <br>
-To search by genre name
-- movies/searchgenre/thegenrename
+GET To search by genre
+- movies/bygenre/:genre
 <br>
-To search by genre id
-- movies/scode/thegenreid
+GET To search by actor
+- movies/byactor/:actor
 <br>
-To search by movies are in theathers right now
+GET To search by movies are in theathers right now
 - movies/nowplaying
 <br>
-To search by popularity
+GET To search by popularity
 - movies/popular
+<br><br><br><br>
+#### NEW USER
+POST Create new user 
+- /users
+- Body attributes: mame, lastname, email, country, city, cp, password
 <br>
+POST Login
+- /login
+- Body attributes: email, password
+<br><br><br><br>
+### ADMIN
+GET All orders
+- /orders
 <br>
+GET All users
+- /users/allUsers
 <br>
+POST Orders by city
+- /orders/bycity
+- Body attributes: city
 <br>
-### TV SHOWS
+POST Find user by name
+- users/byname
+- Body attributes: name
 <br>
-To search by title
-- series/bytitle/:thetitle
+POST Find users by email
+- users/byemail
+- Body attributes: email
 <br>
-To search by id
-- series/searchid/:theid
+DEL Delete user by id
+- users/delete
+- Body attributes: id
 <br>
-To search by toprated
-- series/toprated
+DEL Delete order
+- orders/delete
+- Body attributes: orderid
 <br>
-To search by tv on the air
-- series/ontheair
+POST Create movie
+- movies/createmovie
+- Body attributes: title
 <br>
-To search tv show are in theathers by id
-- series/intheaters/:theid
-<br>
-To search popular tv shows in the actual moment
-- series/popularTV
-<br>
+DEL Delete movie
+- movies/deletemovie
+- Body attributes: title
 <br><br><br><br>
 
 <img src="./readmeIMG/img04.png" style="width: 100%">
