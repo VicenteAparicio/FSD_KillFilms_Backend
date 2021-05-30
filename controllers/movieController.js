@@ -1,6 +1,5 @@
 const axios = require('axios');
 const { Movie } = require('../models');
-const bcrypt = require('bcrypt');
 
 class Film {
 
@@ -16,8 +15,23 @@ class Film {
         return Movie.findAll({where: {genre}})
     }
 
-    async moviesByActor(actors){
-        return Movie.findAll({where: {actors}})
+    // async moviesByActor(actors){
+    //     return Movie.findAll({where: {actors}})
+    // }
+
+    async moviesByActor(actor){
+        let actorMovies = [];
+        let movieSearch = await Movie.findAll();
+        for (let i in movieSearch){
+                let arrayActors = movieSearch[i].actors;
+                let stringActors  = arrayActors.split(',');
+                for (let j in stringActors){
+                    if (stringActors[j] == actor){
+                        actorMovies.push(movieSearch[i]);
+                    }
+                }
+        }
+        return actorMovies;
     }
 
     async moviesById(id){
@@ -33,6 +47,7 @@ class Film {
         let movie = body.title;
         console.log(movie)
         let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
+        let resDataMovie = res.data.results[0];
         let movieId = res.data.results[0].id;
         let movieGenreId = res.data.results[0].genre_ids[0];
         let genreMovie = "";
@@ -86,7 +101,7 @@ class Film {
                 title: res.data.results[0].original_title,
                 releasedate: res.data.results[0].release_date,
                 productor: production,
-                director: res.data.results[0].original_title,
+                director: directorMovie,
                 actors: stringActorsMovie,
                 rating: res.data.results[0].vote_average,
                 genre: genreMovie

@@ -18,23 +18,6 @@ class Purchase {
         return Order.findAll({where: {userid: id}});
     }
 
-    // async searchOrdersByCity(city){
-    //     let arrayOrders =[];
-    //     let allOrders = await Order.findAll();
-    //     let allUsers = await User.findAll();
-    //     for (let j in allUsers){
-    //         if(allUsers[j].city==city){
-    //             for (let i in allOrders) {
-    //                 if (allUsers[j].id == allOrders[i].userId){
-    //                     arrayOrders.push(allOrders[i]);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return arrayOrders;
-    // }
-
-
     // SEARCH ORDERS BY CITY 
     async searchOrdersByCity(body){
         let arrayOrders = [];
