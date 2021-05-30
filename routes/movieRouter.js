@@ -70,7 +70,16 @@ router.get('/byid/:id', async (req, res) => {
 });
 
 
-
+router.get('/createmovie/:title', async (req, res) => {
+    try {
+        let title = req.params.title;
+        res.json(await movieController.createMovieByTitle(title));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
 
 
@@ -78,7 +87,7 @@ router.get('/byid/:id', async (req, res) => {
 
 // AXIOS THE MOVIE DATA BASE TIMDB
 
-// router.get('/bytitle/:movie', async (req, res) => {
+// router.get('/axiosbytitle/:movie', async (req, res) => {
 //     try {
 //         let movie = req.params.movie;
 //         res.json(await movieController.searchMovieByTitle(movie));
@@ -88,6 +97,8 @@ router.get('/byid/:id', async (req, res) => {
 //         });
 //     }
 // });
+
+
 
 // router.get('/toprated', async (req, res) => {
 //     try {

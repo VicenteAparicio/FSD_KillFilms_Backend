@@ -66,12 +66,6 @@ class Person {
     async emailUser(email){
         return User.findOne({where: {email}})
     }
-
-
-
-
-
-
 }
 
 let userController = new Person();
