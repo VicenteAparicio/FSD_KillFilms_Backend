@@ -40,7 +40,7 @@ router.post('/byname', admin, async (req, res) => {
 });
 
 //GET user by email
-router.post('/byemail', admin, async (req, res) => {
+router.post('/byemail', authenticate, async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.searchUserByEmail(body));
