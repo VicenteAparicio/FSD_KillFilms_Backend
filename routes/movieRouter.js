@@ -69,11 +69,11 @@ router.get('/byid/:id', async (req, res) => {
     }
 });
 
-
-router.get('/createmovie/:title', async (req, res) => {
+// CREATE MOVIES BY TITLE
+router.post('/createmovie', admin, async (req, res) => {
     try {
-        let title = req.params.title;
-        res.json(await movieController.createMovieByTitle(title));
+        let body = req.body;
+        res.json(await movieController.createMovieByTitle(body));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message
@@ -81,7 +81,17 @@ router.get('/createmovie/:title', async (req, res) => {
     }
 });
 
-
+// DELTE MOVIES BY TITLE
+router.delete('/deletemovie', admin, async (req, res) => {
+    try {
+        let body = req.body;
+        res.json(await movieController.deleteMovie(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
 
 
 

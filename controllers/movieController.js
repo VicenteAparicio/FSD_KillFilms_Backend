@@ -24,7 +24,14 @@ class Film {
         return Movie.findByPk(id)
     }
 
-    async createMovieByTitle(movie) {
+    async deleteMovie(body){
+        let title = body.title;
+        return Movie.destroy(({where: {title}}))
+    }
+
+    async createMovieByTitle(body) {
+        let movie = body.title;
+        console.log(movie)
         let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
         let movieId = res.data.results[0].id;
         let movieGenreId = res.data.results[0].genre_ids[0];
@@ -36,7 +43,7 @@ class Film {
 
         // Production info
         let res3 = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-        let production = res3.data.production_companies[1].name;
+        let production = res3.data.production_companies[0].name;
         console.log(production)
 
 
