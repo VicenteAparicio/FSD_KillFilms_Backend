@@ -17,7 +17,7 @@ This is a team project. We have two objectives: learn how to do teamwork and sta
 <br>
 <br>
 ## Tech
-
+<br>
 - JAVASCRIPT
 - POSTMAN
 <br>
@@ -25,7 +25,12 @@ This is a team project. We have two objectives: learn how to do teamwork and sta
 
 <img src="./readmeIMG/img03.png" style="width: 100%">
 <br>
-## Commands to search
+## Intructions
+Anybody: Anybody can use that commands 
+Sign up users: You need to sign up to use that commands 
+Admin: You need to be Admin to use that commands but you can use all sign up users commands too
+
+## Commands 
 <br>
 ### ANYBODY
 <br>
@@ -51,6 +56,7 @@ GET To search by popularity
 - movies/popular
 <br><br><br><br>
 #### NEW USER
+<br>
 POST Create new user 
 - /users
 - Body attributes: mame, lastname, email, country, city, cp, password
@@ -60,6 +66,7 @@ POST Login
 - Body attributes: email, password
 <br><br><br><br>
 ### ADMIN
+<br>
 GET All orders
 - /orders
 <br>
@@ -74,6 +81,16 @@ POST Find user by name
 - users/byname
 - Body attributes: name
 <br>
+POST Create movie
+- movies/createmovie
+- Body attributes: title
+<br>
+DEL Delete movie
+- movies/deletemovie
+- Body attributes: title
+<br><br><br><br>
+### SIGN UP USERS
+<br>
 POST Find users by email
 - users/byemail
 - Body attributes: email
@@ -82,17 +99,21 @@ DEL Delete user by id
 - users/delete
 - Body attributes: id
 <br>
+POST New order
+- orders/neworder
+- Body attributes: movieId, userId, rentaldate, returndate
+<br>
+PUT Update order
+- orders/modify
+- Body attributes: movieId, userId, rentaldate, returndate
+<br>
+POST Orders by user id
+- orders/orderuserid
+- Body attributes: id
+<br>
 DEL Delete order
 - orders/delete
 - Body attributes: orderid
-<br>
-POST Create movie
-- movies/createmovie
-- Body attributes: title
-<br>
-DEL Delete movie
-- movies/deletemovie
-- Body attributes: title
 <br><br><br><br>
 
 <img src="./readmeIMG/img04.png" style="width: 100%">
