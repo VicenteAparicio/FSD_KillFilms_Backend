@@ -47,9 +47,9 @@ class Film {
         let movie = body.title;
         console.log(movie)
         let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
-        let resDataMovie = res.data.results[0];
-        let movieId = res.data.results[0].id;
-        let movieGenreId = res.data.results[0].genre_ids[0];
+        let movieData = res.data.results[0];
+        let movieId = movieData.id;
+        let movieGenreId = movieData.genre_ids[0];
         let genreMovie = "";
         let actorsMovie = [];
         let directorMovie = "";
@@ -98,12 +98,12 @@ class Film {
         console.log("llegamos a crear?")
         return Movie.create(
             {
-                title: res.data.results[0].original_title,
-                releasedate: res.data.results[0].release_date,
+                title: movieData.original_title,
+                releasedate: movieData.release_date,
                 productor: production,
                 director: directorMovie,
                 actors: stringActorsMovie,
-                rating: res.data.results[0].vote_average,
+                rating: movieData.vote_average,
                 genre: genreMovie
             }
         )
