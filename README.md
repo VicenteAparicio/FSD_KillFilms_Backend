@@ -5,9 +5,9 @@
 <br>
 This is a team project. We have two objectives: learn how to do teamwork and start to work with endpoints. We use TMBD api to find some endpoints to work with. Then we have to verify our code with Postman app. 
 <br>
-- Start date: 18 May 2021
-- Delivery date: 23 May 2021
-- Dedicated time: <15 hours 
+- Start date: 25 May 2021
+- Delivery date: 30 May 2021
+- Dedicated time: <30 hours 
 
 <br>
 <br>
@@ -20,10 +20,12 @@ This is a team project. We have two objectives: learn how to do teamwork and sta
 <br>
 - JAVASCRIPT
 - POSTMAN
+- SEQUELIZE
+- MYSQL WORKBENCH
 <br>
 <br>
 
-<img src="./readmeIMG/img03.png" style="width: 100%">
+<img src="./readmeIMG/img05.jpg" style="width: 100%">
 <br>
 ## Intructions
 Anybody: Anybody can use that commands 
@@ -116,4 +118,4 @@ DEL Delete order
 - Body attributes: orderid
 <br><br><br><br>
 
-<img src="./readmeIMG/img04.png" style="width: 100%">
+<img src="./readmeIMG/img06.png" style="width: 100%">
