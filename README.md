@@ -5,9 +5,9 @@
 <br>
 This is a team project. We have two objectives: learn how to do teamwork and start to work with endpoints. We use TMBD api to find some endpoints to work with. Then we have to verify our code with Postman app. 
 <br>
-- Start date: 18 May 2021
-- Delivery date: 23 May 2021
-- Dedicated time: <15 hours 
+- Start date: 25 May 2021
+- Delivery date: 30 May 2021
+- Dedicated time: <30 hours 
 
 <br>
 <br>
@@ -17,62 +17,105 @@ This is a team project. We have two objectives: learn how to do teamwork and sta
 <br>
 <br>
 ## Tech
-
+<br>
 - JAVASCRIPT
 - POSTMAN
+- SEQUELIZE
+- MYSQL WORKBENCH
 <br>
 <br>
 
-<img src="./readmeIMG/img03.png" style="width: 100%">
+<img src="./readmeIMG/img05.jpg" style="width: 100%">
+<br>
+## Intructions
+Anybody: Anybody can use that commands 
+Sign up users: You need to sign up to use that commands 
+Admin: You need to be Admin to use that commands but you can use all sign up users commands too
 
-## Commands to search
-
-### MOVIES
+## Commands 
 <br>
-To search by title
-- movies/bytitle/:thetitle
+### ANYBODY
 <br>
-To search toprated
-- movies/toprated
+GET Allmovies
+- movies/allmovies
 <br>
-To search by title id
-- movies/searchid/:theid
+GET To search by title
+- movies/bytitle/:title
 <br>
-To search by genre name
-- movies/searchgenre/thegenrename
+GET To search by id
+- movies/byid/:id
 <br>
-To search by genre id
-- movies/scode/thegenreid
+GET To search by genre
+- movies/bygenre/:genre
 <br>
-To search by movies are in theathers right now
+GET To search by actor
+- movies/byactor/:actor
+<br>
+GET To search by movies are in theathers right now
 - movies/nowplaying
 <br>
-To search by popularity
+GET To search by popularity
 - movies/popular
+<br><br><br><br>
+#### NEW USER
 <br>
+POST Create new user 
+- /users
+- Body attributes: mame, lastname, email, country, city, cp, password
 <br>
+POST Login
+- /login
+- Body attributes: email, password
+<br><br><br><br>
+### ADMIN
 <br>
+GET All orders
+- /orders
 <br>
-### TV SHOWS
+GET All users
+- /users/allUsers
 <br>
-To search by title
-- series/bytitle/:thetitle
+POST Orders by city
+- /orders/bycity
+- Body attributes: city
 <br>
-To search by id
-- series/searchid/:theid
+POST Find user by name
+- users/byname
+- Body attributes: name
 <br>
-To search by toprated
-- series/toprated
+POST Create movie
+- movies/createmovie
+- Body attributes: title
 <br>
-To search by tv on the air
-- series/ontheair
+DEL Delete movie
+- movies/deletemovie
+- Body attributes: title
+<br><br><br><br>
+### SIGN UP USERS
 <br>
-To search tv show are in theathers by id
-- series/intheaters/:theid
+POST Find users by email
+- users/byemail
+- Body attributes: email
 <br>
-To search popular tv shows in the actual moment
-- series/popularTV
+DEL Delete user by id
+- users/delete
+- Body attributes: id
 <br>
+POST New order
+- orders/neworder
+- Body attributes: movieId, userId, rentaldate, returndate
+<br>
+PUT Update order
+- orders/modify
+- Body attributes: movieId, userId, rentaldate, returndate
+<br>
+POST Orders by user id
+- orders/orderuserid
+- Body attributes: id
+<br>
+DEL Delete order
+- orders/delete
+- Body attributes: orderid
 <br><br><br><br>
 
-<img src="./readmeIMG/img04.png" style="width: 100%">
+<img src="./readmeIMG/img06.png" style="width: 100%">

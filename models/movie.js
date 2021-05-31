@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        Movie.belongsTo(models.Order, {foreignKey:'movieId'})
+        this.hasMany(models.Order, {foreignKey:'movieId'})
     }
   };
   Movie.init({
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     releasedate: DataTypes.DATE,
     productor: DataTypes.STRING,
     director: DataTypes.STRING,
-    actors: DataTypes.STRING,
+    actors: DataTypes.ABSTRACT,
     rating: DataTypes.INTEGER,
     genre: DataTypes.STRING
   }, {

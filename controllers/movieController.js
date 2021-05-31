@@ -1,52 +1,111 @@
 const axios = require('axios');
+const { Movie } = require('../models');
+const toolsController = require('../tools/toolsController')
 
 class Film {
 
-
-    async searchMovieByTitle(movie) {
-        let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${movie}`);
-        return res.data;
+    async allMovies(){
+        return Movie.findAll();
     }
 
-    async findTopRated() {
-        let res = await axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-        return res.data;
+    async moviesByTitle(title){
+        return Movie.findOne({where: {title}})
     }
 
-    async searchById(id) {
-        let res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-        return res.data;
+    async moviesByGenre(genre){
+        return Movie.findAll({where: {genre}})
     }
 
-    async searchByGenreName(genreName) {
-        let res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
-        let arrayGenre = res.data.genres;
+    // async moviesByActor(actors){
+    //     return Movie.findAll({where: {actors}})
+    // }
 
-        for (let i in arrayGenre) {
-            console.log('red alert')
-            if (genreName == arrayGenre[i].name) {
-                let code1 = arrayGenre[i].id;
-                let res2 = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&with_genres=${code1}`);
-                return res2.data;
+    async moviesByActor(actor){
+        let actorMovies = [];
+        let movieSearch = await Movie.findAll();
+        for (let i in movieSearch){
+                let arrayActors = movieSearch[i].actors;
+                let stringActors  = arrayActors.split(',');
+                for (let j in stringActors){
+                    if (stringActors[j] == actor){
+                        actorMovies.push(movieSearch[i]);
+                    }
+                }
+        }
+        return actorMovies;
+    }
+
+    async moviesById(id){
+        return Movie.findByPk(id)
+    }
+
+    async deleteMovie(body){
+        let title = body.title;
+        return Movie.destroy(({where: {title}}))
+    }
+
+    async createMovieByTitle(body) {
+        let movie = body.title;
+        let existMovie = await Movie.findOne({where: {title: movie}})
+
+        if (existMovie){
+            throw new Error("Esta película ya está en la biblioteca");
+        }
+
+        let res = await toolsController.searchMovieByTitle(movie);
+        console.log(res)
+        let movieId = res.id;
+        let movieGenreId = res.genre_ids[0];
+        let actorsMovie = [];
+        let directorMovie = "";
+        let count = 0;
+        let j = 0;
+
+        // Production info
+        let res3 = await toolsController.searchById(movieId);
+        let production = res3.production_companies[0].name;
+
+
+        // Cast and Crew info
+        let charactersjson = await toolsController.getCreditsMovie(movieId);
+        let cast = charactersjson.data['cast'];
+        let crew = charactersjson.data['crew'];
+
+        do{
+            if (cast[j].known_for_department == "Acting"){
+                actorsMovie.push(cast[j].name);
+                count++;
+            }
+            j++;
+        } while (count<5);
+
+        let stringActorsMovie = actorsMovie.toString();
+        
+        for (let k in crew){
+            if (crew[k].job == "Director" && crew[k].department == "Directing"){
+                directorMovie = crew[k].name;
+                console.log("Este es el director: " + directorMovie)
             }
         }
-    }
 
-    async searchByCode(code) {
-        let res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&with_genres=${code}`);
-        return res.data;
-    }
+        // Genre info
+        let genreMovie = await toolsController.getGenreName(movieGenreId);
 
 
-    async findNowPlaying() {
-        let res = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-        return res.data;
+        return Movie.create(
+            {
+                title: res.original_title,
+                releasedate: res.release_date,
+                productor: production,
+                director: directorMovie,
+                actors: stringActorsMovie,
+                rating: res.vote_average,
+                genre: genreMovie
+            }
+        )
     }
 
-    async findPopular() {
-        let res = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-        return res.data;
-    }
+
 
 }
 

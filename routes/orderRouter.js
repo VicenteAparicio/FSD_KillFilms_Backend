@@ -1,9 +1,10 @@
 const router = require('express').Router();
-
 const orderController = require('../controllers/orderController');
+const authenticate = require('../middleware/authenticate');
+const admin = require("../middleware/adminUser");
 
 // GET all orders
-router.get('/', async (req, res) => {
+router.get('/', admin, async (req, res) => {
     try {
         res.json(await orderController.searchAllOrders());
     } catch (err) {
@@ -13,8 +14,33 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET all orders by Id
+router.post('/orderuserid', async (req, res) => {
+    try {
+        const body = req.body;
+        console.log("llegamos al controller");
+        res.json(await orderController.searchOrderByUserId(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+// GET orders by city
+router.post('/bycity', admin, async (req, res) => {
+    try {
+        const body = req.body;
+        res.json(await orderController.searchOrdersByCity(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
 // POST new order with body
-router.post('/', async (req, res) => {
+router.post('/neworder', authenticate,async (req, res) => {
     try {
         const body = req.body;
         res.json(await orderController.newOrder(body));
@@ -25,5 +51,33 @@ router.post('/', async (req, res) => {
         });
     }
 });
+
+
+// PUT modify order
+router.put('/modify', authenticate,async (req,res)=> {
+    try {
+        const body = req.body;
+        res.json(await orderController.modifyOrder(body));
+
+    }catch (err) {
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+})
+
+
+// DELETE order by ID
+router.delete('/delete', authenticate, async (req,res)=> {
+    try {
+        const body = req.body;
+        res.json(await orderController.deleteOrder(body));
+
+    }catch (err) {
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+})
 
 module.exports = router;

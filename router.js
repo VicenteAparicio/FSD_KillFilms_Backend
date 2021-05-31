@@ -12,7 +12,7 @@ const orderRouter = require("./routes/orderRouter");
 router.use('/movies', movieRouter);
 router.use('/login', loginRouter);
 router.use('/users', userRouter);
-router.use('/order', orderRouter);
+router.use('/orders', orderRouter);
 
 
 
