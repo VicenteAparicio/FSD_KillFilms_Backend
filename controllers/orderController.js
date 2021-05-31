@@ -30,6 +30,7 @@ class Purchase {
         }
         return arrayOrders;
     }
+
     // MODIFY ORDER
     async modifyOrder(body){
         let orderId = body.orderId;
@@ -42,6 +43,7 @@ class Purchase {
                { id: orderId }
         })
     }
+    
     // DELETE ORDER
     async deleteOrder(body){
         let id = body.orderId;

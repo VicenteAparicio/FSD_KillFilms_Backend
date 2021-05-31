@@ -9,7 +9,12 @@ class Tools {
     // SEARCH MOVIE BY TITLE
     async searchMovieByTitle(title) {
         let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${title}`);
-        return res.data.results[0];
+        for (let i in res.data.results){
+            if (res.data.results[i].original_title == title){
+                console.log(res.data.results[i]);
+                return res.data.results[i];
+            }
+        }
     }
     
     // SEARCH TOP RATED MOVIES
