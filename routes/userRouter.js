@@ -52,7 +52,7 @@ router.post('/byemail', authenticate, async (req, res) => {
 });
 
 // POST new user with body
-router.post('/', async (req, res) => {
+router.post('/newuser', async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.newUser(body));

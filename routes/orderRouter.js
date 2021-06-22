@@ -18,7 +18,6 @@ router.get('/', admin, async (req, res) => {
 router.post('/orderuserid', async (req, res) => {
     try {
         const body = req.body;
-        console.log("llegamos al controller");
         res.json(await orderController.searchOrderByUserId(body));
     } catch (err) {
         return res.status(500).json({

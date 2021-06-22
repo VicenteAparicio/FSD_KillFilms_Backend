@@ -53,7 +53,6 @@ class Film {
         }
 
         let res = await toolsController.searchMovieByTitle(movie);
-        console.log(res)
         let movieId = res.id;
         let movieGenreId = res.genre_ids[0];
         let actorsMovie = [];
@@ -62,8 +61,11 @@ class Film {
         let j = 0;
 
         // Production info
+        
         let res3 = await toolsController.searchById(movieId);
-        let production = res3.production_companies[0].name;
+        
+        let production = res3.production_companies[0]?.name;
+        
 
 
         // Cast and Crew info
@@ -71,10 +73,13 @@ class Film {
         let cast = charactersjson.data['cast'];
         let crew = charactersjson.data['crew'];
 
+        
         do{
-            if (cast[j].known_for_department == "Acting"){
+            if (cast[j]?.known_for_department == "Acting"){
                 actorsMovie.push(cast[j].name);
                 count++;
+            } else {
+                break;
             }
             j++;
         } while (count<5);
@@ -84,7 +89,6 @@ class Film {
         for (let k in crew){
             if (crew[k].job == "Director" && crew[k].department == "Directing"){
                 directorMovie = crew[k].name;
-                console.log("Este es el director: " + directorMovie)
             }
         }
 

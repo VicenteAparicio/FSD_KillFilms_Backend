@@ -19,6 +19,10 @@ class Person {
         let email = body.email;
         return User.findOne({where: {email}})
     }
+    // ESTE EMAIL USER SEARCH ES PARA LOS CHECKS
+    async emailUser(email){
+        return User.findOne({where: {email}})
+    }
 
     async newUser(body){
         let userExist = await userController.searchUserByEmail(body);
@@ -56,9 +60,7 @@ class Person {
         return User.destroy({where: {id}})
     }
 
-    async emailUser(email){
-        return User.findOne({where: {email}})
-    }
+
 }
 
 let userController = new Person();

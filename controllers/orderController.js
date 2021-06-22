@@ -12,7 +12,6 @@ class Purchase {
     }
 
     async searchOrderByUserId(body) {
-        console.log("llegamos al controller");
         let id = body.id;
         return Order.findAll({where: {userid: id}});
     }
@@ -49,10 +48,6 @@ class Purchase {
         let id = body.orderId;
         return Order.destroy ({where:{id}})
     }
-
-
-
-
 }
 
 let orderController = new Purchase();
