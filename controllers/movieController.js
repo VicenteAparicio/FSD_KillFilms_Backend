@@ -95,7 +95,13 @@ class Film {
         // Genre info
         let genreMovie = await toolsController.getGenreName(movieGenreId);
 
-
+        // Poster url
+        const imgPath = "https://image.tmdb.org/t/p"+res.poster_path
+        
+        // Overview
+        console.log("hola soy el puto console log")
+        console.log("soy el overview, ", res.overview)
+        
         return Movie.create(
             {
                 title: res.original_title,
@@ -104,7 +110,9 @@ class Film {
                 director: directorMovie,
                 actors: stringActorsMovie,
                 rating: res.vote_average,
-                genre: genreMovie
+                genre: genreMovie,
+                overview: res.overview,
+                poster_path: imgPath
             }
         )
     }

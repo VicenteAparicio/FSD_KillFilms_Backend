@@ -194,4 +194,29 @@ router.get('/popular', async (req, res) => {
     }
 });
 
+
+router.get('/axiostop', async (req, res) => {
+    try {
+        res.json(await toolsController.findTopRated);
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+
+router.get('/axiosbytitle/name', async (req, res) => {
+    try {
+        let name = req.params.name;
+        res.json(await toolsController.searchMovieByTitle(name));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+
+
 module.exports = router;
