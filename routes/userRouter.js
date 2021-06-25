@@ -54,7 +54,10 @@ router.post('/byemail', authenticate, async (req, res) => {
 // POST new user with body
 router.post('/newuser', async (req, res) => {
     try {
+        console.log("llegamos al newUser router")
+        
         const body = req.body;
+        console.log("este es el body ", body)
         res.json(await userController.newUser(body));
 
     }catch (err) {

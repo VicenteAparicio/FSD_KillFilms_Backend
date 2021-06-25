@@ -25,6 +25,7 @@ class Person {
     }
 
     async newUser(body){
+        console.log("llegamos al newUser controller")
         let userExist = await userController.searchUserByEmail(body);
         if (userExist){
             throw new Error("Este email ya está siendo utilizado");

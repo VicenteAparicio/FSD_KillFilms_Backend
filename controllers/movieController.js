@@ -95,8 +95,6 @@ class Film {
         // Genre info
         let genreMovie = await toolsController.getGenreName(movieGenreId);
 
-        // Poster url
-        const imgPath = "https://image.tmdb.org/t/p"+res.poster_path
         
         // Overview
         console.log("hola soy el puto console log")
@@ -112,7 +110,7 @@ class Film {
                 rating: res.vote_average,
                 genre: genreMovie,
                 overview: res.overview,
-                poster_path: imgPath
+                poster_path: res.poster_path
             }
         )
     }
