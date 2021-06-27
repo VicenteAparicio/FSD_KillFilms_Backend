@@ -9,7 +9,7 @@ class LoginController {
         let user = await userController.emailUser(emailCheck);
 
         if (!user){
-            throw new Error("Wrong user or password")
+            throw new Error("Wrong user")
         }
         let password = user.password;
 
@@ -17,7 +17,7 @@ class LoginController {
         
 
         if(!verificar){
-            throw new Error("El password y el email no coinciden");
+            throw new Error("El password no coincide");
         }
 
         let payload = {

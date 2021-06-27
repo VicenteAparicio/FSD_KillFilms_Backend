@@ -44,12 +44,13 @@ class Film {
         return Movie.destroy(({where: {title}}))
     }
 
+
     async createMovieByTitle(body) {
         let movie = body.title;
         let existMovie = await Movie.findOne({where: {title: movie}})
-
+        
         if (existMovie){
-            throw new Error("Esta película ya está en la biblioteca");
+            return "Esta película ya está en la biblioteca";
         }
 
         let res = await toolsController.searchMovieByTitle(movie);
@@ -94,11 +95,6 @@ class Film {
 
         // Genre info
         let genreMovie = await toolsController.getGenreName(movieGenreId);
-
-        
-        // Overview
-        console.log("hola soy el puto console log")
-        console.log("soy el overview, ", res.overview)
         
         return Movie.create(
             {

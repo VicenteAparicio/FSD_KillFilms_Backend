@@ -54,10 +54,7 @@ router.post('/byemail', authenticate, async (req, res) => {
 // POST new user with body
 router.post('/newuser', async (req, res) => {
     try {
-        console.log("llegamos al newUser router")
-        
         const body = req.body;
-        console.log("este es el body ", body)
         res.json(await userController.newUser(body));
 
     }catch (err) {
@@ -81,7 +78,7 @@ router.put('/modify', async (req, res) => {
 });
 
 // DELETE user by Id
-router.delete('/delete', authenticate, async (req, res) => {
+router.post('/delete', authenticate, async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.deleteUser(body))

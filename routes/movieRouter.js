@@ -83,7 +83,7 @@ router.post('/createmovie', admin, async (req, res) => {
 });
 
 // DELTE MOVIES BY TITLE
-router.delete('/deletemovie', admin, async (req, res) => {
+router.post('/deletemovie', async (req, res) => {
     try {
         let body = req.body;
         res.json(await movieController.deleteMovie(body));
