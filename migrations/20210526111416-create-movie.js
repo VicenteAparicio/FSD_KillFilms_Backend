@@ -35,6 +35,9 @@ module.exports = {
       poster_path: {
         type: Sequelize.STRING
       },
+      isPremium: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

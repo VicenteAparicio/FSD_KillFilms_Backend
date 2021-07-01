@@ -55,7 +55,7 @@ class Film {
 
         let res = await toolsController.searchMovieByTitle(movie);
         let movieId = res.id;
-        let movieGenreId = res.genre_ids[0];
+        let movieGenreId = res.genre_ids;
         let actorsMovie = [];
         let directorMovie = "";
         let count = 0;

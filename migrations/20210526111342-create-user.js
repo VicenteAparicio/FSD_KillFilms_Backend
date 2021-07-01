@@ -32,6 +32,9 @@ module.exports = {
       isAdmin: {
         type: Sequelize.BOOLEAN
       },
+      isPremium: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

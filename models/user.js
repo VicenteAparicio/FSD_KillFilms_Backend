@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     cp: DataTypes.INTEGER,
     password: DataTypes.STRING,
+    isPremium: DataTypes.BOOLEAN,
     isAdmin: DataTypes.BOOLEAN
   }, {
     sequelize,

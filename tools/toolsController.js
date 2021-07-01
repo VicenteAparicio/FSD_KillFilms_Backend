@@ -41,15 +41,16 @@ class Tools {
 
     // GET GENRE NAME BY ID
     async getGenreName(movieGenreId){
+        let genreMovie=[];
         let res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
         let arrayGenre = res.data.genres;
         for (let i in arrayGenre) {
-            if (movieGenreId == arrayGenre[i].id){
-                
-                let genreMovie = arrayGenre[i].name;
-                return genreMovie;
+            for (let j in movieGenreId)
+            if (movieGenreId[j] == arrayGenre[i].id){
+                genreMovie.push(arrayGenre[i].name);
             }
-        }  
+        } 
+        return genreMovie.toString();
     }
 
     // SEARCH MOVIES IN TMDB BY GENRE NAME

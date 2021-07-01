@@ -26,6 +26,15 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      titleMovie: {
+        type: Sequelize.STRING
+      },
+      posterMovie: {
+        type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
       rentaldate: {
         type: Sequelize.DATE
       },
