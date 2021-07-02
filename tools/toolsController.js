@@ -84,6 +84,15 @@ class Tools {
         let res = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
         return res.data;
     }
+
+    async playTrailer(movieId){
+        let res = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`)
+        let urlTrailer = "https://www.youtube.com/embed/" + res.data.results[0].key;    
+        return urlTrailer;
+    }
+    // http://localhost:3005/movies/play
+    
+
 }
 
 

@@ -83,10 +83,22 @@ router.post('/createmovie', admin, async (req, res) => {
 });
 
 // DELTE MOVIES BY TITLE
-router.post('/deletemovie', async (req, res) => {
+router.post('/deletemovie', admin, async (req, res) => {
     try {
         let body = req.body;
         res.json(await movieController.deleteMovie(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+router.post('/updatemovie', admin, async (req, res) => {
+    try {
+        let body = req.body;
+        console.log("llegamos a updateMovie, ",body)
+        res.json(await movieController.editPremium(body));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message
@@ -216,6 +228,17 @@ router.get('/axiosbytitle/name', async (req, res) => {
         });
     }
 });
+
+router.post("/axios/trailer", async (req, res) => {
+    try {
+      let movieId = req.body.movieId;
+      res.json(await toolsController.playTrailer(movieId));
+    } catch (err) {
+      return res.status(500).json({
+        mensaje: err.mensaje,
+      });
+    }
+  });
 
 
 

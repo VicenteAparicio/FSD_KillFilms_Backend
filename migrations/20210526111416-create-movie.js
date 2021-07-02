@@ -35,6 +35,9 @@ module.exports = {
       poster_path: {
         type: Sequelize.STRING
       },
+      urlTrailer: {
+        type: Sequelize.STRING
+      },
       isPremium: {
         type: Sequelize.BOOLEAN
       },

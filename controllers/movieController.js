@@ -16,6 +16,24 @@ class Film {
         return Movie.findAll({where: {genre}})
     }
 
+    async editPremium(body){
+        let title = body.title;
+        let isPremium = body.isPremium;
+
+        if (isPremium){
+            return Movie.update(
+                { isPremium: false },
+                { where: {title} }
+            )
+
+        } else if  (!isPremium) {
+            return Movie.update(
+                { isPremium: true },
+                { where: {title} }
+            )
+        }
+    }
+
     // async moviesByActor(actors){
     //     return Movie.findAll({where: {actors}})
     // }
@@ -62,19 +80,14 @@ class Film {
         let j = 0;
 
         // Production info
-        
         let res3 = await toolsController.searchById(movieId);
-        
         let production = res3.production_companies[0]?.name;
         
-
-
         // Cast and Crew info
         let charactersjson = await toolsController.getCreditsMovie(movieId);
         let cast = charactersjson.data['cast'];
         let crew = charactersjson.data['crew'];
 
-        
         do{
             if (cast[j]?.known_for_department == "Acting"){
                 actorsMovie.push(cast[j].name);
@@ -93,6 +106,9 @@ class Film {
             }
         }
 
+        // URL trailer
+        let resUrlTrailer = await toolsController.playTrailer(movieId);
+        
         // Genre info
         let genreMovie = await toolsController.getGenreName(movieGenreId);
         
@@ -106,7 +122,9 @@ class Film {
                 rating: res.vote_average,
                 genre: genreMovie,
                 overview: res.overview,
-                poster_path: res.poster_path
+                poster_path: res.poster_path,
+                urlTrailer: resUrlTrailer,
+                isPremium: "false",
             }
         )
     }

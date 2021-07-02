@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     genre: DataTypes.STRING,
     overview: DataTypes.TEXT,
     poster_path: DataTypes.STRING,
+    urlTrailer: DataTypes.STRING,
     isPremium: DataTypes.BOOLEAN,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
