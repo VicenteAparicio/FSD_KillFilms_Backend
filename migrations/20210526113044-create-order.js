@@ -35,11 +35,12 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      rentaldate: {
-        type: Sequelize.DATE
+      howManyTimesWatched: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
-      returndate: {
-        type: Sequelize.DATE
+      watchDates: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: true,

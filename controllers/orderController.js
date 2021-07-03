@@ -12,8 +12,12 @@ class Purchase {
     }
 
     async searchOrderByUserId(body) {
-        let id = body.id;
-        return Order.findAll({where: {userid: id}});
+        let userId = body.userId;
+        return Order.findAll({where: {userid: userId}});
+    }
+    async searchOrderById(body) {
+        let id = body.orderId;
+        return Order.findByPk(id);
     }
 
     // SEARCH ORDERS BY CITY 
@@ -37,6 +41,20 @@ class Purchase {
             {
                 rentaldate: body.rentaldate,
                 returndate: body.returndate
+            },
+            { where: 
+               { id: orderId }
+        })
+    }
+    async modifyOrderCount(body){
+        
+        let orderId = body.orderId;
+        let updateWatches = body.watchDates.toString();
+        console.log("string de los updates", updateWatches)
+        return Order.update(
+            {
+                howManyTimesWatched: body.howManyTimesWatched,
+                watchDates: updateWatches
             },
             { where: 
                { id: orderId }
