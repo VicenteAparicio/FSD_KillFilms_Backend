@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     cp: DataTypes.INTEGER,
     password: DataTypes.STRING,
     isPremium: DataTypes.BOOLEAN,
-    isAdmin: DataTypes.BOOLEAN
+    isAdmin: DataTypes.BOOLEAN,
+    isActive: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'User',
