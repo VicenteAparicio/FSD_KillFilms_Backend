@@ -15,7 +15,7 @@ router.get('/', admin, async (req, res) => {
 });
 
 // GET all orders by userId
-router.post('/orderuserid', async (req, res) => {
+router.post('/orderuserid', authenticate, async (req, res) => {
     try {
         const body = req.body;
         res.json(await orderController.searchOrderByUserId(body));
@@ -63,19 +63,20 @@ router.post('/neworder', authenticate,async (req, res) => {
 
 
 // PUT modify order
-router.post('/modify', authenticate,async (req,res)=> {
-    try {
-        const body = req.body;
-        res.json(await orderController.modifyOrder(body));
+// router.post('/modify', authenticate,async (req,res)=> {
+//     try {
+//         const body = req.body;
+//         res.json(await orderController.modifyOrder(body));
 
-    }catch (err) {
-        return res.status(500).json({
-            message: err.message
-        });
-    }
-})
-router.post('/modifycount', authenticate,async (req,res)=> {
+//     }catch (err) {
+//         return res.status(500).json({
+//             message: err.message
+//         });
+//     }
+// })
+router.post('/modifycount',authenticate,async (req,res)=> {
     try {
+        console.log("llegamos al router")
         const body = req.body;
         res.json(await orderController.modifyOrderCount(body));
 
@@ -88,8 +89,9 @@ router.post('/modifycount', authenticate,async (req,res)=> {
 
 
 // DELETE order by ID
-router.delete('/delete', authenticate, async (req,res)=> {
+router.post('/delete', authenticate, async (req,res)=> {
     try {
+        console.log("llegamos al router")
         const body = req.body;
         res.json(await orderController.deleteOrder(body));
 
