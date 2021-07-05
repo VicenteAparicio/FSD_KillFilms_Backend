@@ -37,17 +37,20 @@ class Person {
 
     async modifyUser(body){
         let id = body.id;
-        let password = body.password;
-        let passwordHashed = bcrypt.hashSync(password, 10);
+        if (body?.password){
+            let password = body.password;
+            let passwordHashed = bcrypt.hashSync(password, 10);
+        }
+        
         return User.update(
             {
                 name: body.name,
                 lastname: body.lastname,
+                // password: passwordHashed,
                 email: body.email,
                 country: body.country,
                 city: body.city,
-                cp: body.cp,
-                password: passwordHashed
+                cp: body.cp   
             },
             {
                 where: {id}

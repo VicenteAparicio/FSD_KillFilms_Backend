@@ -65,7 +65,7 @@ router.post('/newuser', async (req, res) => {
 });
 
 // POST modify user with body
-router.put('/modify', async (req, res) => {
+router.post('/modify', async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.modifyUser(body));
