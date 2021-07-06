@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Bootcamp2021",
-    "database": "backendfilms",
-    "host": "127.0.0.1",
+    "username": "b78c027a640824",
+    "password": "82c0a843",
+    "database": "",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   },
   "test": {
