@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Bootcamp2021",
-    "database": "bckendfilms",
+    "database": "backendfilms",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
