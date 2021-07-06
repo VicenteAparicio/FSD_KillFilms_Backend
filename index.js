@@ -9,7 +9,7 @@ const cors = require('cors')
 app.use(cors());
 app.use(express.json());
 app.use(router);
-
+app.use(express.static(__dirname + '/public'));
 
 //Connecting to the database
 db.then(()=>{
