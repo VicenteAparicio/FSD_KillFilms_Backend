@@ -12,9 +12,12 @@ class Purchase {
     }
 
     async searchOrderByUserId(body) {
-        console.log("llegamos al controller");
-        let id = body.id;
-        return Order.findAll({where: {userid: id}});
+        let userId = body.userId;
+        return Order.findAll({where: {userid: userId}});
+    }
+    async searchOrderById(body) {
+        let id = body.orderId;
+        return Order.findByPk(id);
     }
 
     // SEARCH ORDERS BY CITY 
@@ -43,16 +46,26 @@ class Purchase {
                { id: orderId }
         })
     }
+    async modifyOrderCount(body){
+        
+        let orderId = body.orderId;
+        let updateWatches = body.watchDates.toString();
+        console.log("string de los updates", updateWatches)
+        return Order.update(
+            {
+                howManyTimesWatched: body.howManyTimesWatched,
+                watchDates: updateWatches
+            },
+            { where: 
+               { id: orderId }
+        })
+    }
     
     // DELETE ORDER
     async deleteOrder(body){
         let id = body.orderId;
         return Order.destroy ({where:{id}})
     }
-
-
-
-
 }
 
 let orderController = new Purchase();

@@ -8,12 +8,16 @@ class LoginController {
 
         let user = await userController.emailUser(emailCheck);
 
+        if (!user){
+            throw new Error("Wrong user")
+        }
         let password = user.password;
 
         let verificar = await bcrypt.compare(passwordCheck,password);
+        
 
         if(!verificar){
-            return new Error("El password y el email no coinciden");
+            throw new Error("El password no coincide");
         }
 
         let payload = {
@@ -21,9 +25,8 @@ class LoginController {
             createdAt: new Date,
             isAdmin : user.isAdmin
         };
-
         return jwt.sign(payload,secret); // SE CREA EL TOKEN
-
+        
     }
 }
 

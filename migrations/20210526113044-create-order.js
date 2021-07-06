@@ -26,11 +26,21 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      rentaldate: {
-        type: Sequelize.DATE
+      titleMovie: {
+        type: Sequelize.STRING
       },
-      returndate: {
-        type: Sequelize.DATE
+      posterMovie: {
+        type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
+      howManyTimesWatched: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      watchDates: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: true,

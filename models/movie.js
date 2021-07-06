@@ -18,9 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     releasedate: DataTypes.DATE,
     productor: DataTypes.STRING,
     director: DataTypes.STRING,
-    actors: DataTypes.ABSTRACT,
+    actors: DataTypes.STRING,
     rating: DataTypes.INTEGER,
-    genre: DataTypes.STRING
+    genre: DataTypes.STRING,
+    overview: DataTypes.TEXT,
+    poster_path: DataTypes.STRING,
+    urlTrailer: DataTypes.STRING,
+    isPremium: DataTypes.BOOLEAN,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Movie',

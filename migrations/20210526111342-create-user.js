@@ -17,6 +17,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
+      birthdate: {
+        type: Sequelize.DATE
+      },
       country: {
         type: Sequelize.STRING
       },
@@ -30,7 +33,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       isAdmin: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      isPremium: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: true,

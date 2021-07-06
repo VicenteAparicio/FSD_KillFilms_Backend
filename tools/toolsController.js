@@ -8,10 +8,13 @@ class Tools {
 
     // SEARCH MOVIE BY TITLE
     async searchMovieByTitle(title) {
+        
         let res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=210d6a5dd3f16419ce349c9f1b200d6d&query=${title}`);
         for (let i in res.data.results){
-            if (res.data.results[i].original_title == title){
-                console.log(res.data.results[i]);
+
+        
+            if (res.data.results[i].original_title.toLowerCase() == title.toLowerCase()){
+                
                 return res.data.results[i];
             }
         }
@@ -20,7 +23,7 @@ class Tools {
     // SEARCH TOP RATED MOVIES
     async findTopRated() {
         let res = await axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
-        return res.data;
+        return res.data.results;
     }
 
     // SEARCH MOVIE BY ID
@@ -38,14 +41,16 @@ class Tools {
 
     // GET GENRE NAME BY ID
     async getGenreName(movieGenreId){
+        let genreMovie=[];
         let res = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`);
         let arrayGenre = res.data.genres;
         for (let i in arrayGenre) {
-            if (movieGenreId == arrayGenre[i].id){
-                let genreMovie = arrayGenre[i].name;
-                return genreMovie;
+            for (let j in movieGenreId)
+            if (movieGenreId[j] == arrayGenre[i].id){
+                genreMovie.push(arrayGenre[i].name);
             }
-        }  
+        } 
+        return genreMovie.toString();
     }
 
     // SEARCH MOVIES IN TMDB BY GENRE NAME
@@ -79,6 +84,15 @@ class Tools {
         let res = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US&page=1');
         return res.data;
     }
+
+    async playTrailer(movieId){
+        let res = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=210d6a5dd3f16419ce349c9f1b200d6d&language=en-US`)
+        let urlTrailer = "https://www.youtube.com/embed/" + res.data.results[0].key;    
+        return urlTrailer;
+    }
+    // http://localhost:3005/movies/play
+    
+
 }
 
 

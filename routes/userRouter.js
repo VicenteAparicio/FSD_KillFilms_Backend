@@ -52,7 +52,7 @@ router.post('/byemail', authenticate, async (req, res) => {
 });
 
 // POST new user with body
-router.post('/', async (req, res) => {
+router.post('/newuser', async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.newUser(body));
@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
 });
 
 // POST modify user with body
-router.put('/modify', async (req, res) => {
+router.post('/modify', async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.modifyUser(body));
@@ -78,7 +78,7 @@ router.put('/modify', async (req, res) => {
 });
 
 // DELETE user by Id
-router.delete('/delete', authenticate, async (req, res) => {
+router.post('/delete', authenticate, async (req, res) => {
     try {
         const body = req.body;
         res.json(await userController.deleteUser(body))

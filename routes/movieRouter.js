@@ -83,10 +83,22 @@ router.post('/createmovie', admin, async (req, res) => {
 });
 
 // DELTE MOVIES BY TITLE
-router.delete('/deletemovie', admin, async (req, res) => {
+router.post('/deletemovie', admin, async (req, res) => {
     try {
         let body = req.body;
         res.json(await movieController.deleteMovie(body));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+router.post('/updatemovie', admin, async (req, res) => {
+    try {
+        let body = req.body;
+        console.log("llegamos a updateMovie, ",body)
+        res.json(await movieController.editPremium(body));
     } catch (err) {
         return res.status(500).json({
             mesaje: err.message
@@ -193,5 +205,41 @@ router.get('/popular', async (req, res) => {
         });
     }
 });
+
+
+router.get('/axiostop', async (req, res) => {
+    try {
+        res.json(await toolsController.findTopRated);
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+
+router.get('/axiosbytitle/name', async (req, res) => {
+    try {
+        let name = req.params.name;
+        res.json(await toolsController.searchMovieByTitle(name));
+    } catch (err) {
+        return res.status(500).json({
+            mesaje: err.message
+        });
+    }
+});
+
+router.post("/axios/trailer", async (req, res) => {
+    try {
+      let movieId = req.body.movieId;
+      res.json(await toolsController.playTrailer(movieId));
+    } catch (err) {
+      return res.status(500).json({
+        mensaje: err.mensaje,
+      });
+    }
+  });
+
+
 
 module.exports = router;

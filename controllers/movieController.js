@@ -16,6 +16,24 @@ class Film {
         return Movie.findAll({where: {genre}})
     }
 
+    async editPremium(body){
+        let title = body.title;
+        let isPremium = body.isPremium;
+
+        if (isPremium){
+            return Movie.update(
+                { isPremium: false },
+                { where: {title} }
+            )
+
+        } else if  (!isPremium) {
+            return Movie.update(
+                { isPremium: true },
+                { where: {title} }
+            )
+        }
+    }
+
     // async moviesByActor(actors){
     //     return Movie.findAll({where: {actors}})
     // }
@@ -44,18 +62,18 @@ class Film {
         return Movie.destroy(({where: {title}}))
     }
 
+
     async createMovieByTitle(body) {
         let movie = body.title;
         let existMovie = await Movie.findOne({where: {title: movie}})
-
+        
         if (existMovie){
-            throw new Error("Esta película ya está en la biblioteca");
+            return "Esta película ya está en la biblioteca";
         }
 
         let res = await toolsController.searchMovieByTitle(movie);
-        console.log(res)
         let movieId = res.id;
-        let movieGenreId = res.genre_ids[0];
+        let movieGenreId = res.genre_ids;
         let actorsMovie = [];
         let directorMovie = "";
         let count = 0;
@@ -63,18 +81,19 @@ class Film {
 
         // Production info
         let res3 = await toolsController.searchById(movieId);
-        let production = res3.production_companies[0].name;
-
-
+        let production = res3.production_companies[0]?.name;
+        
         // Cast and Crew info
         let charactersjson = await toolsController.getCreditsMovie(movieId);
         let cast = charactersjson.data['cast'];
         let crew = charactersjson.data['crew'];
 
         do{
-            if (cast[j].known_for_department == "Acting"){
+            if (cast[j]?.known_for_department == "Acting"){
                 actorsMovie.push(cast[j].name);
                 count++;
+            } else {
+                break;
             }
             j++;
         } while (count<5);
@@ -84,14 +103,15 @@ class Film {
         for (let k in crew){
             if (crew[k].job == "Director" && crew[k].department == "Directing"){
                 directorMovie = crew[k].name;
-                console.log("Este es el director: " + directorMovie)
             }
         }
 
+        // URL trailer
+        let resUrlTrailer = await toolsController.playTrailer(movieId);
+        
         // Genre info
         let genreMovie = await toolsController.getGenreName(movieGenreId);
-
-
+        
         return Movie.create(
             {
                 title: res.original_title,
@@ -100,7 +120,11 @@ class Film {
                 director: directorMovie,
                 actors: stringActorsMovie,
                 rating: res.vote_average,
-                genre: genreMovie
+                genre: genreMovie,
+                overview: res.overview,
+                poster_path: res.poster_path,
+                urlTrailer: resUrlTrailer,
+                isPremium: "false",
             }
         )
     }

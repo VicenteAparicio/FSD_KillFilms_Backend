@@ -29,6 +29,18 @@ module.exports = {
       genre: {
         type: Sequelize.STRING
       },
+      overview: {
+        type: Sequelize.TEXT
+      },
+      poster_path: {
+        type: Sequelize.STRING
+      },
+      urlTrailer: {
+        type: Sequelize.STRING
+      },
+      isPremium: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE
