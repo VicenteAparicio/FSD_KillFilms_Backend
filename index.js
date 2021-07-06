@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const port = 3005;
 const db = require('./db.js');
 const router = require('./router');
+const port = process.env.PORT || 3005;
 const cors = require('cors')
 
 // Middleware
