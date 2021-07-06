@@ -17,7 +17,7 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      birthdate: {
+      birthDate: {
         type: Sequelize.DATE
       },
       country: {
