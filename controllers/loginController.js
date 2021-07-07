@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const secret = "Wayco tiene futbolin";
 
 class LoginController {
+    
     async validate(emailCheck,passwordCheck){
 
         let user = await userController.emailUser(emailCheck);
